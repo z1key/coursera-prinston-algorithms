@@ -5,24 +5,24 @@ ASSESSMENT SUMMARY
 Compilation:  PASSED
 API:          PASSED
 
-Findbugs:     FAILED (1 warning)
-PMD:          FAILED (1 warning)
-Checkstyle:   FAILED (0 errors, 1 warning)
+Findbugs:     PASSED
+PMD:          PASSED
+Checkstyle:   PASSED
 
-Correctness:  42/43 tests passed
+Correctness:  43/43 tests passed
 Memory:       48/53 tests passed
-Timing:       125/136 tests passed
+Timing:       126/136 tests passed
 
-Aggregate score: 96.04%
+Aggregate score: 97.59%
 [Compilation: 5%, API: 5%, Findbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
 
 ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-3.6K Aug  6 19:40 Deque.java
- 703 Aug  6 19:40 Permutation.java
-1.7K Aug  6 19:40 RandomizedQueue.java
+3.6K Aug  6 19:49 Deque.java
+ 703 Aug  6 19:49 Permutation.java
+1.7K Aug  6 19:49 RandomizedQueue.java
 
 
 ********************************************************************************
@@ -61,8 +61,6 @@ Permutation:
 
 % findbugs *.class
 *-----------------------------------------------------------
-L B IT_NO_SUCH_ELEMENT It: The 'next()' method must throw a 'java.util.NoSuchElementException' if it is called when there are no more elements to return.  At RandomizedQueue.java:[line 52]
-Warnings generated: 1
 
 
 ================================================================
@@ -70,8 +68,6 @@ Warnings generated: 1
 
 % pmd *.java
 *-----------------------------------------------------------
-RandomizedQueue.java:47: Use the 'isEmpty()' method instead of comparing 'size()' to '0'. [UseCollectionIsEmpty]
-PMD ends with 1 warning.
 
 
 ================================================================
@@ -79,8 +75,6 @@ PMD ends with 1 warning.
 
 % checkstyle *.java
 *-----------------------------------------------------------
-[WARN] RandomizedQueue.java:3:8: Unused import statement for 'java.util.Collections'. [UnusedImports]
-Checkstyle ends with 0 errors and 1 warnings.
 
 % custom checkstyle checks for Deque.java
 *-----------------------------------------------------------
@@ -320,14 +314,13 @@ Test 16: Call enqueue() with a null argument
 ==> passed
 
 Test 17: Check that remove() and next() throw the specified exceptions in iterator()
-    - java.util.NoSuchElementException not thrown for next()
-==> FAILED
+==> passed
 
 Test 18: Check iterator() when RandomizedQueue is empty
 ==> passed
 
 
-Total: 17/18 tests passed!
+Total: 18/18 tests passed!
 
 
 ================================================================
@@ -344,37 +337,37 @@ Running 9 total tests.
 
 Test 1a: Check formatting for sample inputs from assignment specification
   % java Permutation 3 < distinct.txt
-  E
+  F
+  G
   I
-  A
 
   % java Permutation 3 < distinct.txt
-  B
+  C
+  A
   I
-  F
 
   % java Permutation 8 < duplicates.txt
-  BB
   CC
   BB
+  BB
+  BB
+  BB
+  CC
   BB
   AA
-  CC
-  BB
-  BB
 
 ==> passed
 
 Test 1b: Check formatting for other inputs
   % java Permutation 8 < mediumTale.txt
-  worst
+  times
   it
+  was
   of
-  it
-  of
+  foolishness
   it
   wisdom
-  it
+  the
 
   % java Permutation 0 < distinct.txt
   [no output]
@@ -568,12 +561,12 @@ Test 4: Time main() with k = 5, for inputs containing n random strings
 => passed        2000     0.00
 => passed        4000     0.01
 => passed        8000     0.01
-=> passed       16000     0.02
-=> passed       32000     0.05
-=> passed       64000     0.06
-=> passed      128000     0.14
-=> passed      256000     0.25
-=> passed      512000     0.59
+=> passed       16000     0.01
+=> passed       32000     0.02
+=> passed       64000     0.05
+=> passed      128000     0.09
+=> passed      256000     0.19
+=> passed      512000     0.36
 ==> 10/10 tests passed
 
 
@@ -583,14 +576,14 @@ Test 5: Time main() with k = 1000, for inputs containing n random strings
 ------------------------------
 => passed        1000     0.00
 => passed        2000     0.00
-=> passed        4000     0.01
+=> passed        4000     0.00
 => passed        8000     0.01
-=> passed       16000     0.02
-=> passed       32000     0.04
-=> passed       64000     0.08
-=> passed      128000     0.15
-=> passed      256000     0.24
-=> passed      512000     0.53
+=> passed       16000     0.01
+=> passed       32000     0.02
+=> passed       64000     0.04
+=> passed      128000     0.09
+=> passed      256000     0.18
+=> passed      512000     0.35
 ==> 10/10 tests passed
 
 
@@ -863,7 +856,7 @@ Test 1a-1g: Make n random calls to addFirst(), removeFirst(), isEmpty(), and siz
 => passed      128000     0.01
 => passed      256000     0.02
 => passed      512000     0.04
-=> passed     1024000     0.07
+=> passed     1024000     0.09
 => passed     2048000     0.12
 ==> 12/12 tests passed
 
@@ -883,8 +876,8 @@ Test 2a-2g: Make n random calls to addFirst(), removeFirst(), isEmpty(), and siz
 => passed      128000     0.00
 => passed      256000     0.01
 => passed      512000     0.02
-=> passed     1024000     0.04
-=> passed     2048000     0.08
+=> passed     1024000     0.03
+=> passed     2048000     0.07
 ==> 12/12 tests passed
 
 
@@ -919,11 +912,11 @@ Test 4a-4g: Create a deque of n objects, then iterate over the n objects
 => passed        8192     0.00
 => passed       16384     0.00
 => passed       32768     0.00
-=> passed       65536     0.00
+=> passed       65536     0.01
 => passed      128000     0.01
 => passed      256000     0.02
 => passed      512000     0.03
-=> passed     1024000     0.05
+=> passed     1024000     0.03
 => passed     2048000     0.03
 ==> 12/12 tests passed
 
@@ -985,11 +978,10 @@ Test 4a-g: Make n random calls to enqueue(), sample(), dequeue(), isEmpty(),
 => passed       65536     0.01
 => passed      128000     0.01
 => passed      256000     0.02
-=> passed      512000     0.05
-=> passed     1024000     0.13
-=> FAILED     2048000     0.21
-   [ Most likely one of your operations is not constant time. ]
-==> 11/12 tests passed
+=> passed      512000     0.03
+=> passed     1024000     0.10
+=> passed     2048000     0.22
+==> 12/12 tests passed
 
 
 Test 5a-g: Make n random calls to enqueue(), sample(), dequeue(), isEmpty(),
@@ -1004,7 +996,7 @@ Test 5a-g: Make n random calls to enqueue(), sample(), dequeue(), isEmpty(),
 => passed       16384     0.01
 => passed       32768     0.04
 => passed       65536     0.15
-=> FAILED      128000     0.55
+=> FAILED      128000     0.56
    [ Most likely one of your operations is not constant time. ]
 ==> 7/12 tests passed
 
@@ -1020,12 +1012,12 @@ Test 6a-g: Make n random calls to enqueue(), sample(), dequeue(), isEmpty(),
 => passed        8192     0.00
 => passed       16384     0.00
 => passed       32768     0.00
-=> passed       65536     0.01
+=> passed       65536     0.00
 => passed      128000     0.01
-=> passed      256000     0.03
+=> passed      256000     0.02
 => passed      512000     0.04
 => passed     1024000     0.09
-=> passed     2048000     0.17
+=> passed     2048000     0.44
 ==> 12/12 tests passed
 
 
@@ -1038,11 +1030,11 @@ Test 7a-g: Create randomized queue of n objects, then iterate
 => passed        2048     0.00
 => passed        4096     0.00
 => passed        8192     0.00
-=> passed       16384     0.01
+=> passed       16384     0.02
 => passed       32768     0.04
 => passed       65536     0.17
-=> passed      128000     0.81
-=> FAILED      256000     3.41
+=> passed      128000     0.72
+=> FAILED      256000     3.32
    [ Most likely one of your operations is not constant time. ]
 ==> 8/12 tests passed
 
@@ -1055,13 +1047,13 @@ Test 8a-g: Create randomized queue of n objects, then interleave
 => passed        1025     0.00
 => passed        2049     0.00
 => passed        4097     0.01
-=> passed       16385     0.22
-=> passed       32767     0.91
-=> passed       32768     0.85
-=> passed       32769     0.86
+=> passed       16385     0.21
+=> passed       32767     0.82
+=> passed       32768     0.81
+=> passed       32769     0.82
 ==> 7/7 tests passed
 
-Total: 48/58 tests passed!
+Total: 49/58 tests passed!
 
 
 ================================================================

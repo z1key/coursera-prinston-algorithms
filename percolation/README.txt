@@ -6,26 +6,26 @@ Compilation:  PASSED
 API:          PASSED
 
 Findbugs:     PASSED
-PMD:          FAILED (2 warnings)
+PMD:          PASSED
 Checkstyle:   PASSED
 
 Correctness:  27/27 tests passed
 Memory:       6/8 tests passed
-Timing:       3/4 tests passed
+Timing:       6/20 tests passed
 
-Aggregate score: 92.50%
+Aggregate score: 83.50%
 [Compilation: 5%, API: 5%, Findbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
 
 ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-3.2K Aug  3 22:24 Percolation.java
-2.3K Aug  3 22:24 PercolationStats.java
+3.2K Aug  6 21:09 Percolation.java
+2.2K Aug  6 21:09 PercolationStats.java
 
 
 ********************************************************************************
-*  COMPILING                                                                    
+*  COMPILING
 ********************************************************************************
 
 
@@ -49,21 +49,19 @@ PercolationStats:
 
 
 ********************************************************************************
-*  CHECKING STYLE AND COMMON BUG PATTERNS                                       
+*  CHECKING STYLE AND COMMON BUG PATTERNS
 ********************************************************************************
 
 
 % findbugs *.class
 *-----------------------------------------------------------
 
+
 ================================================================
 
 
 % pmd *.java
 *-----------------------------------------------------------
-PercolationStats.java:11: The private instance (or static) variable 'mean' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
-PercolationStats.java:12: The private instance (or static) variable 'stddev' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
-PMD ends with 2 warnings.
 
 
 ================================================================
@@ -157,7 +155,7 @@ Test 8: Open random sites until just before system percolates,
   * n = 50
 ==> passed
 
-Test 9: Check that specified exception is thrown if (row, col) is out of bounds
+Test 9: Call methods with invalid arguments
   * n = 10, (row, col) = (0, 6)
   * n = 10, (row, col) = (12, 6)
   * n = 10, (row, col) = (11, 6)
@@ -168,7 +166,7 @@ Test 9: Check that specified exception is thrown if (row, col) is out of bounds
   * n = 10, (row, col) = (1000, 1000)
 ==> passed
 
-Test 10: check that specified exception is thrown if n <= 0 in constructor
+Test 10: Call constructor with invalid argument
   * n = -10
   * n = -1
   * n = 0
@@ -330,7 +328,7 @@ Total: 12/12 tests passed!
 *  MEMORY (substituting reference Percolation)
 ********************************************************************************
 
-Computing memory of PercolationStats
+Analyzing memory of PercolationStats
 *-----------------------------------------------------------
 Running 4 total tests.
 
@@ -339,10 +337,10 @@ Test 1a-1d: Memory usage as a function of trials for n = 100
 
             trials        bytes
 --------------------------------------------
-=> passed       16          192         
-=> passed       32          320         
-=> passed       64          576         
-=> passed      128         1088         
+=> passed       16          192
+=> passed       32          320
+=> passed       64          576
+=> passed      128         1088
 ==> 4/4 tests passed
 
 
@@ -355,14 +353,14 @@ Total: 4/4 tests passed!
 
 
 ********************************************************************************
-*  TIMING (substituting reference Percolation)                                                                  
+*  TIMING (substituting reference Percolation)
 ********************************************************************************
 
 Timing PercolationStats
 *-----------------------------------------------------------
 Running 4 total tests.
 
-Test 1: Count number of calls to StdStats.mean() and StdStats.stddev()
+Test 1: Count calls to StdStats.mean() and StdStats.stddev()
   * n =  20, trials =  10
     - calls StdStats.mean() the wrong number of times
     - number of student   calls to StdStats.mean() = 2
@@ -401,14 +399,14 @@ Test 1: Count number of calls to StdStats.mean() and StdStats.stddev()
 
 ==> FAILED
 
-Test 2: Count number of calls to StdRandom.setSeed()
+Test 2: Count calls to methods in StdRandom
   * n = 20, trials = 10
   * n = 20, trials = 10
   * n = 40, trials = 10
   * n = 80, trials = 10
 ==> passed
 
-Test 3: Count number of calls to methods in Percolation
+Test 3: Count calls to methods in Percolation
   * n =  20, trials =  10
   * n =  50, trials =  20
   * n = 100, trials =  50
@@ -422,11 +420,11 @@ Test 4: Call PercolationStats methods with trials = 3 and values of n that go up
 
          n  seconds log ratio
      ------------------------
-       724     0.19       2.3
-      1024     0.44       2.4
-      1448     1.21       2.9
-      2048     2.92       2.5
-      2896     7.42       2.7
+       724     0.18       2.3
+      1024     0.39       2.2
+      1448     1.14       3.1
+      2048     3.00       2.8
+      2896     7.27       2.6
 ==> passed
 
 
@@ -441,7 +439,7 @@ Total: 3/4 tests passed!
 *  MEMORY
 ********************************************************************************
 
-Computing memory of Percolation
+Analyzing memory of Percolation
 *-----------------------------------------------------------
 Running 4 total tests.
 
@@ -449,9 +447,9 @@ Test 1a-1d: Check that total memory <= 17 n^2 + 128 n + 1024 bytes
 
                  n        bytes
 --------------------------------------------
-=> passed       64        37544         
-=> passed      256       592040         
-    
+=> passed       64        37552
+=> passed      256       592048
+
         ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         OperationCountLimitExceededException
         Number of calls to methods in WeightedQuickUnionUF exceeds limit: 100000000
@@ -465,31 +463,33 @@ Total: 2/4 tests passed!
 
 
 ********************************************************************************
-*  TIMING                                                                  
+*  TIMING
 ********************************************************************************
 
 Timing Percolation
 *-----------------------------------------------------------
+Running 16 total tests.
+
 Test 1a-1e: Creates an n-by-n percolation system; open sites at random until
-            the system percolates. Count calls to connected(), union() and
-            find() in WeightedQuickUnionUF.
+            the system percolates, interleaving calls to percolates() and open().
+            Count calls to connected(), union() and find() in WeightedQuickUnionUF.
 
                                        2 * connected()
                  n       union()              + find()        constructor
 -----------------------------------------------------------------------------------
-=> FAILED       16          161                  4684   (2.5x)          1         
-=> FAILED       32          769                 40174   (5.4x)          1         
-=> FAILED       64         3116                324734  (11.0x)          1         
-=> FAILED      128        11568               2480524  (21.0x)          1         
-=> FAILED      256        46088              19875722  (42.1x)          1         
-=> FAILED      512       187700             160657828  (85.1x)          1         
-    
+=> passed       16          235                  1752                   1
+=> FAILED       32          732                 10776   (1.5x)          1
+=> FAILED       64         2531                102908   (3.5x)          1
+=> FAILED      128        11376                749644   (6.4x)          1
+=> FAILED      256        45822               5970700  (12.7x)          1
+=> FAILED      512       185563              42216312  (22.4x)          1
+
         ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         OperationCountLimitExceededException
         Number of calls to methods in WeightedQuickUnionUF exceeds limit: 100000000
         ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-==> 0/7 tests passed
+==> 1/7 tests passed
 
 
 If one of the values in the table violates the performance limits
@@ -504,32 +504,35 @@ Tests 2a-2f: Checks whether the number of calls to union(), connected(), and fin
              find() calls made during a single call to open(), isOpen(), isFull(),
              and percolates().
 
-                 n     per open()      per isOpen()    per isFull()    per percolates() 
+                 n     per open()      per isOpen()    per isFull()    per percolates()
 ---------------------------------------------------------------------------------------------
-=> passed       16        4               0               1              16         
-=> FAILED       32        4               0               1              32   (1.3x)
-=> FAILED       64        4               0               1              64   (2.7x)
-=> FAILED      128        4               0               1             128   (5.3x)
-=> FAILED      256        4               0               1             256  (10.7x)
-=> FAILED      512        4               0               1             512  (21.3x)
-=> FAILED     1024        4               0               1            1024  (42.7x)
-==> 1/7 tests passed
+=> passed       16        4               0               1               8
+=> passed       32        4               0               1              20
+=> FAILED       64        4               0               1              36   (1.5x)
+=> FAILED      128        4               0               1              80   (3.3x)
+=> FAILED      256        4               0               1             146   (6.1x)
+=> FAILED      512        4               0               1             303  (12.6x)
+=> FAILED     1024        4               0               1             608  (25.3x)
+==> 2/7 tests passed
 
 
 
 Running time (in seconds) depends on the machine on which the script runs.
 
 
-Test 3: Create an n-by-n percolation system; interleave calls to open() and
-        percolates() until the system percolates. The values of n go up by
-        a factor of sqrt(2). The test is passed if n >= 4096.
+Test 3: Create an n-by-n percolation system; interleave calls to percolates()
+        and open() until the system percolates. The values of n go up by a
+        factor of sqrt(2). The test is passed if n >= 4096 in under 10 seconds.
 
      The approximate order-of-growth is n ^ (log ratio)
 
-         n  seconds log ratio
-     ------------------------
-       362     0.14       4.1
-    
+                        log   union-find     log
+         n  seconds   ratio   operations   ratio
+     -------------------------------------------
+       362     0.10     3.1     18332200     3.3
+       512     0.28     2.8     49689458     2.9
+       724     0.76     2.9    131647440     2.8
+
         ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         OperationCountLimitExceededException
         Number of calls to methods in WeightedQuickUnionUF exceeds limit: 100000000
@@ -542,14 +545,14 @@ Test 3: Create an n-by-n percolation system; interleave calls to open() and
 Test 4: Create an n-by-n percolation system; interleave calls to open(),
         percolates(), isOpen(), isFull(), and numberOfOpenSites() until.
         the system percolates. The values of n go up by a factor of sqrt(2).
-        The test is passed if n >= 4096.
+        The test is passed if n >= 4096 in under 10 seconds.
 
-     The approximate order-of-growth is n ^ (log ratio)
+                        log   union-find     log
+         n  seconds   ratio   operations   ratio
+     -------------------------------------------
+       512     0.26     2.8     43443718     3.0
+       724     0.76     3.1    136142562     3.3
 
-         n  seconds log ratio
-     ------------------------
-       362     0.11       3.3
-    
         ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         OperationCountLimitExceededException
         Number of calls to methods in WeightedQuickUnionUF exceeds limit: 100000000
@@ -558,7 +561,7 @@ Test 4: Create an n-by-n percolation system; interleave calls to open(),
 ==> FAILED
 
 
-Total: 1/16 tests passed!
+Total: 3/16 tests passed!
 
 
 ================================================================

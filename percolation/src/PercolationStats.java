@@ -59,8 +59,8 @@ public class PercolationStats {
 
         PercolationStats stats = new PercolationStats(size, trials);
 
-        System.out.println(stats.mean());
-        System.out.println(stats.stddev());
+        System.out.println(stats.mean);
+        System.out.println(stats.stddev);
         System.out.println("[" + stats.confidenceLo() + "], [" + stats.confidenceHi() + "]");
     }
 }

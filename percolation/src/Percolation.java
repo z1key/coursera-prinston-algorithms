@@ -7,6 +7,7 @@ public class Percolation {
 
     private int openedSites;
     private final WeightedQuickUnionUF uf;
+    private boolean isPercolate;
 
     // create n-by-n grid, with all sites blocked
     public Percolation(int n) {
@@ -73,10 +74,13 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
+        if (isPercolate) return true;
         for (int i = 1; i <= n; i++) {
-            if (uf.connected(0, n * n  + i)) return true;
+            if (isFull(n, i)) {
+                isPercolate = true;
+            }
         }
-        return false;
+        return isPercolate;
     }
 
     // test client (optional)

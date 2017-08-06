@@ -1,8 +1,5 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
-/**
- * Created by User on 26.07.2017.
- */
 public class Percolation {
 
     private final int n;

@@ -80,7 +80,7 @@ public class Deque<Item> implements Iterable<Item> {
 
         private Node next;
         private Node prev;
-        private Item value;
+        private final Item value;
 
         Node(Item value) {
             this.value = value;
@@ -116,19 +116,15 @@ public class Deque<Item> implements Iterable<Item> {
     @Override
     public Iterator<Item> iterator() {
         return new Iterator<Item>() {
-
-            Node curr = new Node(null, head, null);
-
+            private Node curr = new Node(null, head, null);
             @Override
             public void remove() {
                 throw new UnsupportedOperationException();
             }
-
             @Override
             public boolean hasNext() {
                 return curr.getNext() != null;
             }
-
             @Override
             public Item next() {
                 curr = curr.getNext();

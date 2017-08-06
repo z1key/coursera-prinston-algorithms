@@ -1,15 +1,12 @@
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
-/**
- * Created by User on 26.07.2017.
- */
 public class PercolationStats {
 
     private final double[] results;
 
-    private double mean;
-    private double stddev;
+    private final double mean;
+    private final double stddev;
 
     // perform trials independent experiments on an n-by-n grid
     public PercolationStats(int n, int trials) {
